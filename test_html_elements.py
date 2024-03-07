@@ -9,7 +9,7 @@ class HtmlElementsTestCase(unittest.TestCase):
         # Set path to your WebDriver here
         self.driver = webdriver.Chrome
     def test_html_elements(self):
-        driver = self.driver
+        driver = self.driver(self)
         self.driver.get("http://10.48.10.153:32000")                                                                 #change this to your IP
         # Check for the presence of a specific HTML element by ID
 #        some_element = driver.find_element(By.ID, "someElementId")
@@ -24,6 +24,6 @@ class HtmlElementsTestCase(unittest.TestCase):
 #        image = driver.find_element(By.TAG_NAME, "img")
 #        self.assertEqual("expected-image.jpg", image.get_attribute("src"))
     def tearDown(self):
-        self.driver.quit()
+        self.driver.quit(self)
 if __name__ == "__main__":
     unittest.main()
