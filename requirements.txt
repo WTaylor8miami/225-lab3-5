@@ -1,0 +1,3 @@
+plaintext
+selenium==3.141.0 
+chromedriver-autoinstaller==0.2.2
