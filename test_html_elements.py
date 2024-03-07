@@ -24,6 +24,6 @@ class HtmlElementsTestCase(unittest.TestCase):
 #        image = driver.find_element(By.TAG_NAME, "img")
 #        self.assertEqual("expected-image.jpg", image.get_attribute("src"))
     def tearDown(self):
-        self.driver.quit()
+        driver.quit(self)
 if __name__ == "__main__":
     unittest.main()
