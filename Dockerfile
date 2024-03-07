@@ -17,12 +17,11 @@ RUN pip install selenium
 # Copy your test script into the container
 WORKDIR /tests
 COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY test_html_elements.py .
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY index.html /usr/share/nginx/html/index.html
 COPY style.css /usr/share/nginx/html/style.css
-
-#add this line to clear errors with robots.txt
 COPY robots.txt /usr/share/nginx/html/robots.txt
-RUN pip install --no-cache-dir -r requirements.txt
-COPY tests/ .
+
 CMD ["python", "test_html_elements.py"]
