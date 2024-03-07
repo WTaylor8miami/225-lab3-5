@@ -19,7 +19,7 @@ WORKDIR /tests
 COPY requirements.txt.
 RUN pip install --no-cache-dir -r requirements.txt
 COPY tests/ .
-CMD ["python", "-m", "unittest", "discover"]
+CMD ["python", "-m", test_html_elements.py]
 
 WORKDIR /usr/share/nginx/html
 COPY default.conf /etc/nginx/conf.d/default.conf
