@@ -31,7 +31,16 @@ pipeline {
                 }
             }
         }
-
+        
+        stage('Run Selenium Tests') {
+            steps {
+                script {
+                    // Run tests in the Docker container
+                    docker.run("my-selenium-tests", "python test_script.py")
+                }
+            }
+        }        
+        
         stage('Push Docker Image') {
             steps {
                 script {
