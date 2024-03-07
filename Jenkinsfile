@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     // Run tests in the Docker container
-                    docker.run("my-selenium-tests", "python test_script.py")
+                    docker.run("${DOCKER_IMAGE}:${IMAGE_TAG}", "python test_html_elements.py")
                 }
             }
         }        
