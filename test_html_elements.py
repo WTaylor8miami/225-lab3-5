@@ -10,7 +10,7 @@ class HtmlElementsTestCase(unittest.TestCase):
         self.driver = webdriver.Chrome
     def test_html_elements(self):
         driver = self.driver
-        driver.get(url="http://10.48.10.153:32000")                                                                 #change this to your IP
+        driver.get("http://10.48.10.153")                                                                 #change this to your IP
         # Check for the presence of a specific HTML element by ID
 #        some_element = driver.find_element(By.ID, "someElementId")
 #        self.assertIsNotNone(some_element)
