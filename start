@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Start Nginx
-service nginx start
-
-# Here, replace `your_test_script.py` with the path to your actual Selenium test script
-# For example, you might run a Python script directly or use a test runner like pytest
-python your_test_script.py
