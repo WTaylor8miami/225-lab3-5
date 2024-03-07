@@ -1,2 +1,2 @@
 selenium
-chromedriver-autoinstaller
+chromedriver-autoinstaller==122.0.6261.94
