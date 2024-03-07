@@ -7,7 +7,7 @@ class HtmlElementsTestCase(unittest.TestCase):
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
         # Set path to your WebDriver here
-        service = Service(executable_path='/usr/bin/chromedriver')
+        #service = service(executable_path='/usr/bin/chromedriver')
         self.driver = webdriver.Chrome()
     def test_html_elements(self):
         driver = self.driver()
