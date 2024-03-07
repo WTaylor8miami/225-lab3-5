@@ -7,7 +7,7 @@ class HtmlElementsTestCase(unittest.TestCase):
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
         # Set path to your WebDriver here
-        self.driver = webdriver.Chrome(executable_path="/path/to/chromedriver", options=options)
+        self.driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver", options=options)
     def test_html_elements(self):
         driver = self.driver
         driver.get("http://10.48.10.153:32000")                                                                 #change this to your IP
