@@ -10,7 +10,7 @@ RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >
 # Install Chrome
 RUN apt-get update && apt-get install -y google-chrome-stable
 
-CMD google-chrome --version
+CMD ["google-chrome", "--version]
 
 # Automatically determine the most recent compatible ChromeDriver version and install it
 RUN CHROME_VERSION=$(google-chrome --version | grep -oE "[0-9]+" | head -1) && \
