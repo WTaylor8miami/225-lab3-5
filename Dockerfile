@@ -10,15 +10,13 @@ RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >
 # Install Chrome
 RUN apt-get update && apt-get install -y google-chrome-stable
 
-CMD ["google-chrome", "--version]
-
 # Automatically determine the most recent compatible ChromeDriver version and install it
-RUN CHROME_VERSION=$(google-chrome --version | grep -oE "[0-9]+" | head -1) && \
-    CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION") && \
-    wget -N "http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" -P /tmp && \
-    unzip /tmp/chromedriver_linux64.zip -d /usr/local/bin/ && \
-    chmod +x /usr/local/bin/chromedriver && \
-    rm /tmp/chromedriver_linux64.zip
+
+RUN CHROME_VERSION=$(google-chrome --version | grep -oE "[0-9]+" | head -1) 
+RUN CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION") 
+RUN wget -N "http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" -P /tmp 
+RUN unzip /tmp/chromedriver_linux64.zip -d /usr/local/bin/
+RUN chmod +x /usr/local/bin/chromedriver && rm /tmp/chromedriver_linux64.zip
 
 # Install Selenium
 RUN pip install selenium
