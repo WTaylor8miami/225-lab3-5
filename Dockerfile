@@ -25,4 +25,4 @@ COPY style.css /usr/share/nginx/html/style.css
 COPY robots.txt /usr/share/nginx/html/robots.txt
 RUN pip install --no-cache-dir -r requirements.txt
 COPY tests/ .
-#CMD ["python", "test_html_elements.py]
+CMD ["python", "test_html_elements.py]
