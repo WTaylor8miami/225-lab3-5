@@ -65,12 +65,12 @@ pipeline {
                 }
             }
         }                
-        stage ("Pull Dastardly") {
+        stage ("Pull DASTardly") {
             steps {
                 sh 'docker pull public.ecr.aws/portswigger/dastardly:latest'
             }
         }
-        stage ("Run Dastardly") {
+        stage ("Run DASTardly") {
             steps {
                 //cleanWs()
                 sh '''
