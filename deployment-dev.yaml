@@ -21,7 +21,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-dev-service
+  name: roseaw-dev-service
 spec:
   type: NodePort
   selector:
