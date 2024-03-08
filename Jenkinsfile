@@ -49,7 +49,7 @@ pipeline {
                     // Update deployment-dev.yaml to use the new image tag
                     sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${IMAGE_TAG}|' deployment-dev.yaml"
                     sh "kubectl delete service roseaw-dev-deployment --ignore-not-found=true"
-                    sh 'sleep 300'
+                    sh 'sleep 30'
                     sh "kubectl apply -f deployment-dev.yaml"
                 }
             }
@@ -84,7 +84,7 @@ pipeline {
                     // Set up Kubernetes configuration using the specified KUBECONFIG
                     sh "kubectl get services"
                     sh "kubectl delete service roseaw-prod-deployment --ignore-not-found=true"
-                    sh 'sleep 300'
+                    sh 'sleep 30'
                     sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${IMAGE_TAG}|' deployment-prod.yaml"
                     sh "cd .."
                     sh "kubectl apply -f deployment-prod.yaml"
