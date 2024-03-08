@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS_ID = 'roseaw-dockerhub'
-        DOCKER_IMAGE = 'cithit/roseaw-sl:latest'
+        DOCKER_IMAGE = 'cithit/roseaw-selenium:latest'
         IMAGE_TAG = "build-${BUILD_NUMBER}"
         GITHUB_URL = 'https://github.com/miamioh-cit/225-lab3-5.git'
         KUBECONFIG = credentials('roseaw-metal')
@@ -31,6 +31,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Push Docker Image') {
             steps {
                 script {
@@ -41,22 +42,12 @@ pipeline {
             }
         }
 
-        stage('Deploy to Dev Environment') {
-            steps {
-                script {
-                    // Set up Kubernetes configuration using the specified KUBECONFIG
-                    def kubeConfig = readFile(KUBECONFIG)
-                    // Update deployment-dev.yaml to use the new image tag
-                    sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${IMAGE_TAG}|' deployment-dev.yaml"
-                    sh "kubectl apply -f deployment-dev.yaml"
-                }
-            }
-        }        
         stage ("Pull DASTardly") {
             steps {
                 sh 'docker pull public.ecr.aws/portswigger/dastardly:latest'
             }
         }
+        
         stage ("Run DASTardly") {
             steps {
                 //cleanWs()
@@ -68,6 +59,29 @@ pipeline {
                 '''
             }
         }
+        
+        stage('Deploy to Dev Environment') {
+            steps {
+                script {
+                    // Set up Kubernetes configuration using the specified KUBECONFIG
+                    def kubeConfig = readFile(KUBECONFIG)
+                    // Update deployment-dev.yaml to use the new image tag
+                    sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${IMAGE_TAG}|' deployment-dev.yaml"
+                    sh "kubectl apply -f deployment-dev.yaml"
+                }
+            }
+        }
+ 
+        stage('Run Selenium Tests') {
+            steps {
+                script {
+                    // Run tests in the Docker container
+                    docker.image("${DOCKER_IMAGE}:${IMAGE_TAG}").inside { sh "python3 test_html_elements.py"}
+                    sh 'sleep 5'
+                }
+            }
+        }                
+        
          stage('Deploy to Prod Environment') {
             steps {
                 script {
@@ -78,16 +92,7 @@ pipeline {
                 }
             }
         }
-        stage('Run Selenium Tests') {
-            steps {
-                script {
-                    // Run tests in the Docker container
-                    docker.image("${DOCKER_IMAGE}:${IMAGE_TAG}").inside { sh "python3 test_html_elements.py"}
-                    sh 'sleep 5'
-                }
-            }
-        }                
-
+ 
         stage('Check Kubernetes Cluster') {
             steps {
                 script {
