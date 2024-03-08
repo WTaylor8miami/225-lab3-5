@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM ubuntu
 
 # Install dependencies for Chrome
 RUN apt-get update && apt-get install -y wget unzip curl gnupg
@@ -8,10 +8,14 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
 RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 
 # Install Chrome
-RUN apt-get update && apt-get install -y google-chrome-stable
+RUN wget -N "https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.111/linux64/chrome-linux64.zip" -P /tmp 
+RUN unzip /tmp//tmp/chrome-linux64.zip -d /usr/local/bin/
+RUN chmod +x /usr/local/bin/chrome
+
+# Install Chromedriver
 RUN wget -N "https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.111/linux64/chromedriver-linux64.zip" -P /tmp 
-RUN unzip /tmp/chromedriver_linux64.zip -d /usr/local/bin/
-RUN chmod +x /usr/local/bin/chromedriver && rm /tmp/chromedriver_linux64.zip
+RUN unzip /tmp//tmp/chromedriver_linux64.zip -d /usr/local/bin/
+RUN chmod +x /usr/local/bin/chromedriver 
 
 # Install Selenium
 RUN pip install selenium
