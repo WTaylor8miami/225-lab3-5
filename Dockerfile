@@ -8,9 +8,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
 RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 
 # Install Chrome
-RUN wget -N "https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.111/linux64/chrome-linux64.zip" -P /tmp 
-RUN unzip /tmp//tmp/chrome-linux64.zip -d /usr/local/bin/
-RUN chmod +x /usr/local/bin/chrome
+RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
 
 # Install Chromedriver
 RUN wget -N "https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.111/linux64/chromedriver-linux64.zip" -P /tmp 
