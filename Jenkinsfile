@@ -6,7 +6,7 @@ pipeline {
         DOCKER_IMAGE = 'cithit/roseaw-selenium:latest'
         IMAGE_TAG = "build-${BUILD_NUMBER}"
         GITHUB_URL = 'https://github.com/miamioh-cit/225-lab3-5/tree/WTaylor8miami-patch-1'
-        KUBECONFIG = credentials('roseaw-metal')
+        KUBECONFIG = credentials('taylorw8-test-credentials')
     }
 
     stages {
