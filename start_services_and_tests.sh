@@ -2,4 +2,4 @@
 
 service nginx start
 
-python test_html_elements.py
+python3 test_html_elements.py
