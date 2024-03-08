@@ -17,7 +17,8 @@ RUN chmod +x /usr/local/bin/chromedriver-linux64
 RUN apt-get install pip -y
 RUN pip install selenium
 RUN apt-get install python3 -y
-
+RUN mkdir -p .cache/selenium && \
+    chmod -R 777 .cache/selenium && \
 # Your remaining setup (e.g., copying files into the container)
 
 
