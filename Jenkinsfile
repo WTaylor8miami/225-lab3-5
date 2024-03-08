@@ -31,16 +31,6 @@ pipeline {
                 }
             }
         }
-        
-        stage('Run Selenium Tests') {
-            steps {
-                script {
-                    // Run tests in the Docker container
-                    docker.image("${DOCKER_IMAGE}:${IMAGE_TAG}").inside { sh "python3 test_html_elements.py"}
-                }
-            }
-        }        
-        
         stage('Push Docker Image') {
             steps {
                 script {
@@ -63,7 +53,15 @@ pipeline {
                     sh "kubectl apply -f deployment-dev.yaml"
                 }
             }
-        }
+        }        
+        stage('Run Selenium Tests') {
+            steps {
+                script {
+                    // Run tests in the Docker container
+                    docker.image("${DOCKER_IMAGE}:${IMAGE_TAG}").inside { sh "python3 test_html_elements.py"}
+                }
+            }
+        }                
         stage ("Pull Dastardly") {
             steps {
                 sh 'docker pull public.ecr.aws/portswigger/dastardly:latest'
