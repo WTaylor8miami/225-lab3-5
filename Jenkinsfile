@@ -52,15 +52,6 @@ pipeline {
                 }
             }
         }        
-        stage('Run Selenium Tests') {
-            steps {
-                script {
-                    // Run tests in the Docker container
-//                    docker.image("${DOCKER_IMAGE}:${IMAGE_TAG}").inside { sh "python3 test_html_elements.py"}
-                    sh 'sleep 5'
-                }
-            }
-        }                
         stage ("Pull DASTardly") {
             steps {
                 sh 'docker pull public.ecr.aws/portswigger/dastardly:latest'
@@ -87,6 +78,16 @@ pipeline {
                 }
             }
         }
+        stage('Run Selenium Tests') {
+            steps {
+                script {
+                    // Run tests in the Docker container
+                    docker.image("${DOCKER_IMAGE}:${IMAGE_TAG}").inside { sh "python3 test_html_elements.py"}
+                    sh 'sleep 5'
+                }
+            }
+        }                
+
         stage('Check Kubernetes Cluster') {
             steps {
                 script {
