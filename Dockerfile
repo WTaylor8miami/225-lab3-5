@@ -14,7 +14,7 @@ RUN unzip /tmp/chromedriver-linux64.zip -d /usr/local/bin/
 RUN chmod +x /usr/local/bin/chromedriver-linux64 
 
 # Install Selenium
-RUN apt-get install pip
+RUN apt-get install pip -y
 RUN pip install selenium
 
 # Your remaining setup (e.g., copying files into the container)
