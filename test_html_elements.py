@@ -20,7 +20,7 @@ class HtmlElementsTestCase(unittest.TestCase):
     def test_html_elements(self):
         # Use self.driver.get("http://your_website_here") to navigate to the page.
         # Example test: Uncomment and adapt as needed
-        self.driver.get("http://10.40.10.153:32000")
+        self.driver.get("http://10.48.10.153:32000")
         # Check for the presence of a specific HTML element by ID
         # some_element = self.driver.find_element(By.ID, "someElementId")
         # self.assertIsNotNone(some_element)
