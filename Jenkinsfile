@@ -21,6 +21,10 @@ pipeline {
             steps {
                 sh 'npm install htmlhint --save-dev'
                 sh 'npx htmlhint *.html'
+                sh "kubectl delete service roseaw-dev-deployment --ignore-not-found=true"
+                sh "kubectl delete service roseaw-prod-deployment --ignore-not-found=true"
+                sh 'sleep 30'
+
             }
         }
 
@@ -48,8 +52,6 @@ pipeline {
                     def kubeConfig = readFile(KUBECONFIG)
                     // Update deployment-dev.yaml to use the new image tag
                     sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${IMAGE_TAG}|' deployment-dev.yaml"
-                    sh "kubectl delete service roseaw-dev-deployment --ignore-not-found=true"
-                    sh 'sleep 30'
                     sh "kubectl apply -f deployment-dev.yaml"
                 }
             }
@@ -72,7 +74,7 @@ pipeline {
                 //cleanWs()
                 sh '''
                     docker run --user $(id -u) -v ${WORKSPACE}:${WORKSPACE}:rw \
-                    -e BURP_START_URL=http://10.48.10.181:32000/ \
+                    -e BURP_START_URL=http://10.48.10.153:32000/ \
                     -e BURP_REPORT_FILE_PATH=${WORKSPACE}/dastardly-report.xml \
                     public.ecr.aws/portswigger/dastardly:latest
                 '''
@@ -82,9 +84,6 @@ pipeline {
             steps {
                 script {
                     // Set up Kubernetes configuration using the specified KUBECONFIG
-                    sh "kubectl get services"
-                    sh "kubectl delete service roseaw-prod-deployment --ignore-not-found=true"
-                    sh 'sleep 30'
                     sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${IMAGE_TAG}|' deployment-prod.yaml"
                     sh "cd .."
                     sh "kubectl apply -f deployment-prod.yaml"
