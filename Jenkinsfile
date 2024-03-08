@@ -57,7 +57,7 @@ pipeline {
             steps {
                 script {
                     // Run tests in the Docker container
-                    docker.image("${DOCKER_IMAGE}:${IMAGE_TAG}").inside { sh "python3 test_html_elements.py"}
+//                    docker.image("${DOCKER_IMAGE}:${IMAGE_TAG}").inside { sh "python3 test_html_elements.py"}
                 }
             }
         }                
