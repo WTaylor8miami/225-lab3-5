@@ -10,7 +10,7 @@ RUN apt install ./google-chrome-stable_current_amd64.deb -y
 
 # Install Chromedriver
 RUN wget -N "https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.111/linux64/chromedriver-linux64.zip" -P /tmp 
-RUN unzip /tmp//tmp/chromedriver_linux64.zip -d /usr/local/bin/
+RUN unzip /tmp/chromedriver_linux64.zip -d /usr/local/bin/
 RUN chmod +x /usr/local/bin/chromedriver 
 
 # Install Selenium
