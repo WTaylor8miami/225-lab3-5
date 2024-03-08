@@ -82,7 +82,9 @@ pipeline {
             steps {
                 script {
                     // Set up Kubernetes configuration using the specified KUBECONFIG
-                    //sh "ls -la"
+                    sh "kubectl get services"
+                    sh "kubectl delete service roseaw-dev-deployment"
+                    sh "kubectl delete service roseaw-prod-deployment"
                     sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${IMAGE_TAG}|' deployment-prod.yaml"
                     sh "cd .."
                     sh "kubectl apply -f deployment-prod.yaml"
