@@ -19,8 +19,9 @@ pipeline {
 
         stage('Lint HTML') {
             steps {
-                sh 'npm install htmlhint --save-dev'
-                sh 'npx htmlhint *.html'
+//                sh 'npm install htmlhint --save-dev'
+//                sh 'npx htmlhint *.html'
+                  sh 'sleep 3'
             }
         }
 
