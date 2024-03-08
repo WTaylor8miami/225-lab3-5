@@ -23,7 +23,7 @@ pipeline {
                 sh 'npx htmlhint *.html'
                 sh "kubectl delete service roseaw-dev-deployment --ignore-not-found=true"
                 sh "kubectl delete service roseaw-prod-deployment --ignore-not-found=true"
-                sh 'sleep 30'
+                sh 'sleep 10'
 
             }
         }
@@ -53,6 +53,7 @@ pipeline {
                     // Update deployment-dev.yaml to use the new image tag
                     sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${IMAGE_TAG}|' deployment-dev.yaml"
                     sh "kubectl apply -f deployment-dev.yaml"
+                    sh 'sleep 30'
                 }
             }
         }        
