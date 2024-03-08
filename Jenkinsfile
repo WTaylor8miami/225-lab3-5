@@ -21,8 +21,8 @@ pipeline {
             steps {
                 sh 'npm install htmlhint --save-dev'
                 sh 'npx htmlhint *.html'
-                sh "kubectl delete service roseaw-dev-deployment --ignore-not-found=true"
-                sh "kubectl delete service roseaw-prod-deployment --ignore-not-found=true"
+                sh "kubectl delete deployment/roseaw-dev-deployment --ignore-not-found=true"
+                sh "kubectl delete deployment/roseaw-prod-deployment --ignore-not-found=true"
                 sh 'sleep 10'
 
             }
